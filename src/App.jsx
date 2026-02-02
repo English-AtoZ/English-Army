@@ -15,6 +15,7 @@ import Terms from "./Nav-Head/Terms";
 import Navbar from "./Nav-Head/Navbar";
 import Footer from "./Nav-Head/Footer";
 import Home from './Home'
+import ErrorPage from "./components/ErrorPage";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<Terms />} />
+        <Route path="*" element={<ErrorPage/>} />
       </Routes>
 
  
