@@ -3,6 +3,7 @@ import './HindiToSansikritAudio.css';
 import TopBannerAd from "./TopBannerAd";
 import BottomAdBanner from "./BottomAdBanner";
 import Footer from '../Nav-Head/Footer';
+import { Link } from 'react-router-dom';
 
 const HindiToSansikritAudio = () => {
   const [isListening, setIsListening] = useState(false);
@@ -66,52 +67,65 @@ const HindiToSansikritAudio = () => {
 
 
 
-   <div>
-          <div className="header">
+    <div>
+      <div className="header">
         <h3>🎙️ Hindi to Sanskrit Audio Tutor</h3>
         <p>Developed by P K (Sanskrit Version)</p>
       </div>
       <div className="">
 
 
-      <TopBannerAd />
+        <TopBannerAd />
 
-      <div className="card">
-        <div className="displayArea">
-          <div className="resultBox">
-            <small>Aapne kaha (Hindi):</small>
-            <p className="hindiText">{hindiText || "..."}</p>
+        <div className="card">
+          <div className="displayArea">
+            <div className="resultBox">
+              <small>Aapne kaha (Hindi):</small>
+              <p className="hindiText">{hindiText || "..."}</p>
+            </div>
+
+            <div className="resultBox" style={{ borderLeft: '5px solid #673ab7', backgroundColor: '#f3e5f5' }}>
+              <small>Sanskrit Anuvada (Audio):</small>
+              <p className="sanskritText">{isLoading ? "Anuvadam karoti..." : sanskritTranslation || "..."}</p>
+              {sanskritTranslation && (
+                <button onClick={() => speakSanskrit(sanskritTranslation)} className="speakBtn">
+                  🔊 Punah Shravanam (Re-play)
+                </button>
+              )}
+            </div>
           </div>
 
-          <div className="resultBox" style={{ borderLeft: '5px solid #673ab7', backgroundColor: '#f3e5f5' }}>
-            <small>Sanskrit Anuvada (Audio):</small>
-            <p className="sanskritText">{isLoading ? "Anuvadam karoti..." : sanskritTranslation || "..."}</p>
-            {sanskritTranslation && (
-              <button onClick={() => speakSanskrit(sanskritTranslation)} className="speakBtn">
-                🔊 Punah Shravanam (Re-play)
-              </button>
-            )}
+          <div className="inputWrapper">
+            <button
+              onClick={startListening}
+              disabled={isListening || isLoading}
+              className="micBtn"
+              style={{ backgroundColor: isListening ? '#ff4b2b' : '#673ab7' }}
+            >
+              {isListening ? '🛑' : '🎤'}
+            </button>
+            <p className="status">{isListening ? "Shrunvantu... (Listening in Hindi)" : "Tap the mic to speak Hindi"}</p>
           </div>
         </div>
 
-        <div className="inputWrapper">
-          <button
-            onClick={startListening}
-            disabled={isListening || isLoading}
-            className="micBtn"
-            style={{ backgroundColor: isListening ? '#ff4b2b' : '#673ab7' }}
-          >
-            {isListening ? '🛑' : '🎤'}
-          </button>
-          <p className="status">{isListening ? "Shrunvantu... (Listening in Hindi)" : "Tap the mic to speak Hindi"}</p>
-        </div>
+
       </div>
+      <div>
 
- 
+        <div className="text-center mt-4">
+          <Link
+            to="/" onClick={() => setOpen(false)}
+            className="text-sm text-blue-600 hover:underline"
+          >
+            ← Back to Home
+          </Link>
+        </div>
+
+
+
+        <BottomAdBanner /><BottomAdBanner /></div>
+
     </div>
-    <div><BottomAdBanner /><BottomAdBanner /></div>
-   
-   </div>
 
 
 

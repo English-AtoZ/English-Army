@@ -1,48 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './LearnWithAudio.css';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import TopBannerAd from "./TopBannerAd";
 import BottomAdBanner from "./BottomAdBanner";
 import Footer from '../Nav-Head/Footer';
+import { Link } from 'react-router-dom';
 
 const LearnWithAudio = () => {
+  const [isListening, setIsListening] = useState(false);
+  const [hindiText, setHindiText] = useState('');
   const [englishTranslation, setEnglishTranslation] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const [lang, setLang] = useState('hi-IN');
+  const recognitionRef = useRef(null);
 
-  const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition, isMicrophoneAvailable } = useSpeechRecognition();
-
+  // Initialize microphone like Sanskrit page
   useEffect(() => {
-    if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost') {
-      setError('Requires HTTPS on mobile. Deploy to secure server.');
-    }
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.lang = 'hi-IN';
+      recognitionRef.current.continuous = false;
 
-    if (!browserSupportsSpeechRecognition) {
-      setError('Speech recognition not supported. Try Chrome/Samsung Internet on Android.');
+      recognitionRef.current.onresult = async (event) => {
+        const text = event.results[0][0].transcript;
+        setHindiText(text);
+        await translateToEnglish(text);
+      };
+
+      recognitionRef.current.onend = () => setIsListening(false);
+      recognitionRef.current.onerror = () => setIsListening(false);
+    } else {
+      setError(
+        'Speech recognition not supported. Use Chrome/Samsung Internet on Android.'
+      );
     }
   }, []);
-
-  useEffect(() => {
-    if (transcript) translateToEnglish(transcript);
-  }, [transcript]);
 
   const translateToEnglish = async (text) => {
     if (!text) return;
     setIsLoading(true);
     try {
-      // const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=hi&tl=en&dt=t&q=${encodeURIComponent(text)}`;
-            const BASE_URL = import.meta.env.VITE_TRANSLATE_API_URLH;
-      const url = `${BASE_URL}?client=gtx&sl=hi&tl=en&dt=t&q=${encodeURIComponent(text)}`;
+      const BASE_URL = import.meta.env.VITE_TRANSLATE_API_URLH;
+      const url = `${BASE_URL}?client=gtx&sl=hi&tl=en&dt=t&q=${encodeURIComponent(
+        text
+      )}`;
       const response = await fetch(url);
       const data = await response.json();
       const translated = data[0][0][0];
       setEnglishTranslation(translated);
       speakEnglish(translated);
-    } catch (error) {
-      setEnglishTranslation("Translation failed.");
-      setError("Translation error. Check internet.");
-    } finally { setIsLoading(false); }
+    } catch {
+      setEnglishTranslation('Translation failed.');
+      setError('Translation error. Check internet.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const speakEnglish = (text) => {
@@ -53,79 +66,84 @@ const LearnWithAudio = () => {
       msg.rate = 0.9;
       window.speechSynthesis.speak(msg);
     } else {
-      setError("Speech synthesis not supported.");
+      setError('Speech synthesis not supported.');
     }
   };
 
   const startListening = () => {
-    resetTranscript();
+    setHindiText('');
     setEnglishTranslation('');
     setError('');
-
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia({ audio: true })
-        .then(() => {
-          SpeechRecognition.startListening({ language: lang, continuous: false });
-        })
-        .catch((err) => {
-          setError("Microphone denied. Allow in browser settings.");
-        });
-    } else {
-      SpeechRecognition.startListening({ language: lang, continuous: false });
-    }
+    setIsListening(true);
+    recognitionRef.current.start();
   };
 
   const stopListening = () => {
-    SpeechRecognition.stopListening();
+    recognitionRef.current.stop();
+    setIsListening(false);
   };
 
   return (
-   <div>
-         <div style={{height:'100%'}} className="container">
-      <div  className="innerWrap">
-
-        <TopBannerAd />
-
-        <div className=" displayArea">
-          <div className="resultBox">
-            <small>{lang === 'hi-IN' ? 'Hindi Input' : 'English Input'}:</small>
-            <p className="hindiText">{transcript || "..."}</p>
-          </div>
-
-          <div className="resultBox" style={{ borderLeft: '5px solid #2e7d32', backgroundColor: '#e8f5e9' }}>
-            <small>English Translation:</small>
-            <p className="engText">{isLoading ? "Translating..." : englishTranslation || "..."}</p>
-          </div>
-        </div>
-
-        <div className="inputWrapper">
-          <button style={{color:'green', marginRight: '60px'}} onClick={startListening} disabled={listening || isLoading} className="micBtn">Click Speak</button>
-
-          <button onClick={stopListening} disabled={!listening} className="micBtn" style={{ marginLeft: '60px', color: 'red' }}>Stop</button>
-
-          <p className="status">{listening ? "Listening... Speak now!" : "Tap Start to Begin"}</p>
-          {error && <p className="error">{error}</p>}
-
-          <div style={{ marginTop: '5px' }}>
-            <button onClick={() => setLang('hi-IN')} className="langBtn">Hindi</button>
-            <button onClick={() => setLang('en-US')} className="langBtn">English</button>
-          </div>
-
-          
-        </div>
-        
-
+    <div>
+      <div className="header">
+        <h3>🎙️ Hindi to English Audio Tutor</h3>
+        <p>Developed by P K</p>
       </div>
-      
+
+      <TopBannerAd />
+
+      <div className="card">
+        <div className="displayArea">
+          {/* Hindi Input */}
+          <div
+            className="resultBox"
+            style={{ borderLeft: '5px solid red', backgroundColor: '#ffe5e5' }}
+          >
+            <small>Hindi Input:</small>
+            <p className="hindiText">{hindiText || '...'}</p>
+          </div>
+
+          {/* English Output */}
+          <div
+            className="resultBox"
+            style={{ borderLeft: '5px solid blue', backgroundColor: '#e5f0ff' }}
+          >
+            <small>English Translation:</small>
+            <p className="engText">
+              {isLoading ? 'Translating...' : englishTranslation || '...'}
+            </p>
+            {englishTranslation && (
+              <button onClick={() => speakEnglish(englishTranslation)} className="speakBtn">
+                🔊 Re-play
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Microphone */}
+        <div className="inputWrapper">
+          <button
+            onClick={startListening}
+            disabled={isListening || isLoading}
+            className="micBtn"
+            style={{ backgroundColor: isListening ? '#ff4b2b' : '#673ab7' }}
+          >
+            {isListening ? '🛑' : '🎤'}
+          </button>
+          <p className="status">{isListening ? 'Listening... Speak now!' : 'Tap the mic to speak Hindi'}</p>
+          {error && <p className="error">{error}</p>}
+        </div>
+      </div>
+
+      <div className="text-center mt-4">
+        <Link to="/"  onClick={() => setOpen(false)} className="text-sm text-blue-600 hover:underline">
+          ← Back to Home
+        </Link>
+      </div>
+
+      <BottomAdBanner />
+      <Footer />
     </div>
-    <div><BottomAdBanner /><BottomAdBanner /></div>
-    
-   </div>
-
-
-
-
-
   );
 };
 

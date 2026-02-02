@@ -3,6 +3,7 @@ import './LearnWithAudioEnglish.css';
 import TopBannerAd from "./TopBannerAd";
 import BottomAdBanner from "./BottomAdBanner";
 import Footer from '../Nav-Head/Footer';
+import { Link } from 'react-router-dom';
 
 const LearnWithAudioEnglish = () => {
   const [isListening, setIsListening] = useState(false);
@@ -12,7 +13,9 @@ const LearnWithAudioEnglish = () => {
   const recognitionRef = useRef(null);
 
   useEffect(() => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+
     if (SpeechRecognition) {
       recognitionRef.current = new SpeechRecognition();
       recognitionRef.current.lang = 'en-US';
@@ -33,15 +36,14 @@ const LearnWithAudioEnglish = () => {
     if (!text) return;
     setIsLoading(true);
     try {
-      // const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=hi&dt=t&q=${encodeURIComponent(text)}`;
-            const BASE_URL = import.meta.env.VITE_TRANSLATE_API_URLE;
+      const BASE_URL = import.meta.env.VITE_TRANSLATE_API_URLE;
       const url = `${BASE_URL}?client=gtx&sl=en&tl=hi&dt=t&q=${encodeURIComponent(text)}`;
       const response = await fetch(url);
       const data = await response.json();
       const translated = data[0][0][0];
       setHindiTranslation(translated);
       speakHindi(translated);
-    } catch (error) {
+    } catch {
       setHindiTranslation("Translation failed. Try again.");
     } finally {
       setIsLoading(false);
@@ -64,43 +66,78 @@ const LearnWithAudioEnglish = () => {
   };
 
   return (
+    <div>
+      {/* Header same style as Sanskrit */}
+      <div className="header">
+        <h3>🎙️ English to Hindi Audio Tutor</h3>
+        <p>Developed by P K</p>
+      </div>
 
+      <TopBannerAd />
 
-
-
-   <div>
-        <div style={{height:'100%'}} className="container">
-      <div className="innerWrap">
-
-        <TopBannerAd />
-
+      {/* Card layout same as Sanskrit */}
+      <div className="card">
         <div className="displayArea">
-          <div className="resultBox">
-            <small>English Sentences (What you said):</small>
+
+          {/* English input */}
+          <div
+            className="resultBox"
+            style={{ borderLeft: '5px solid blue', backgroundColor: '#e5f0ff' }}
+          >
+            <small>English (What you said):</small>
             <p className="engText">{englishText || "..."}</p>
           </div>
 
-          <div className="resultBox" style={{ borderLeft: '5px solid #2e7d32', backgroundColor: '#e8f5e9' }}>
-            <small>Hindi Translation:</small>
-            <p className="hindiText">{isLoading ? "Translating..." : hindiTranslation || "..."}</p>
+          {/* Hindi output */}
+          <div
+            className="resultBox"
+            style={{ borderLeft: '5px solid red', backgroundColor: '#ffe5e5' }}
+          >
+            <small>Hindi Translation (Audio):</small>
+            <p className="hindiText">
+              {isLoading ? "Translating..." : hindiTranslation || "..."}
+            </p>
+
+            {hindiTranslation && (
+              <button
+                onClick={() => speakHindi(hindiTranslation)}
+                className="speakBtn"
+              >
+                🔊 Re-play
+              </button>
+            )}
           </div>
+
         </div>
 
+        {/* Mic section same as Sanskrit */}
         <div className="inputWrapper">
-          <button style={{color:'red', margin:'50px'}} onClick={startListening} disabled={isListening || isLoading} className="micBtn">
-            {isListening ? 'Listening...' : 'Click Speak'}
+          <button
+            onClick={startListening}
+            disabled={isListening || isLoading}
+            className="micBtn"
+            style={{ backgroundColor: isListening ? '#ff4b2b' : '#673ab7' }}
+          >
+            {isListening ? '🛑' : '🎤'}
           </button>
-          <p className="status">{isListening ? "Listening... Speak in English" : "English to Hindi Practice"}</p>
+
+          <p className="status">
+            {isListening
+              ? "Listening... Speak in English"
+              : "Tap the mic to speak English"}
+          </p>
         </div>
-
       </div>
+
+      <div className="text-center mt-4">
+        <Link to="/"  onClick={() => setOpen(false)} className="text-sm text-blue-600 hover:underline">
+          ← Back to Home
+        </Link>
+      </div>
+
+      <BottomAdBanner />
+      <Footer />
     </div>
-    <div><BottomAdBanner /><BottomAdBanner /></div>
-    
-   </div>
-
-
-
   );
 };
 

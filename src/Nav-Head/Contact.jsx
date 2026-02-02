@@ -60,7 +60,7 @@ const Contact = () => {
 
           <div className="text-center mt-4">
             <Link
-              to="/"
+              to="/" onClick={() => setOpen(false)}
               className="text-sm text-blue-600 hover:underline"
             >
               ← Back to Home
@@ -70,7 +70,7 @@ const Contact = () => {
       </div>
       <div><BottomAdBanner /></div>
       <div><BottomAdBanner /></div>
-      <Footer />
+     
     </div>
   );
 };

@@ -3,6 +3,7 @@ import './Audios3Bolkar.css';
 import TopBannerAd from "./TopBannerAd";
 import BottomAdBanner from "./BottomAdBanner";
 import Footer from '../Nav-Head/Footer';
+import { Link } from 'react-router-dom';
 
 
 const Audios3Bolkar = () => {
@@ -117,12 +118,27 @@ const Audios3Bolkar = () => {
             {loading ? '...' : translation}
             {!loading && <button onClick={() => speakHindi(translation)} style={{ background: 'none', border: 'none', fontSize: '28px', cursor: 'pointer' }}>🔊</button>}
           </div>
+
+
         </div>
       )}
 
 
     </div>
-    <div><BottomAdBanner /><BottomAdBanner /></div>
+
+    <div>
+          <div className="text-center mt-4">
+            <Link
+              to="/" onClick={() => setOpen(false)}
+              className="text-sm text-blue-600 hover:underline"
+            >
+              ← Back to Home
+            </Link>
+          </div>
+      
+      
+      
+      <BottomAdBanner /><BottomAdBanner /></div>
    
    </div>
   );
