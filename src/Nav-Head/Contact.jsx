@@ -13,54 +13,56 @@ const Contact = () => {
           </h2>
 
           <p className="text-center text-gray-500 mb-6">
-            Aapka koi sawal ya feedback hai? Humein batayein!
+            Have a question, suggestion, or feedback? We’d love to hear from you.
           </p>
 
+          {/* 👇 FORM AREA (REPLACED CONTENT ONLY) */}
           <form className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Full Name
-              </label>
-              <input
-                type="text"
-                placeholder="Apna naam likhein"
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+            <div className="border rounded-lg p-4 bg-gray-50">
+              <h3 className="text-lg font-semibold mb-2 text-gray-800">
+                📧 Email
+              </h3>
+              <p className="text-gray-600 break-all">
+                <a
+                  href="mailto:myenglisharmy@gmail.com"
+                  className="text-blue-600 hover:underline"
+                >
+                 😎 myenglisharmy@gmail.com
+                </a>
+              </p>
+              <p className="text-sm text-gray-500 mt-1">
+                Feel free to email us anytime. We usually respond within 24–48 hours.
+              </p>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Email Address
-              </label>
-              <input
-                type="email"
-                placeholder="name@example.com"
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+            <div className="border rounded-lg p-4 bg-gray-50">
+              <h3 className="text-lg font-semibold mb-2 text-gray-800">
+                📨 Telegram
+              </h3>
+              <p className="text-gray-600 break-all">
+                <a
+                  href="https://t.me/+OytRNZmAK_QyYTk1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline"
+                >
+                  😎 Telegram 
+                </a>
+              </p>
+              <p className="text-sm text-gray-500 mt-1">
+                Connect with us on Telegram for quick support and updates.
+              </p>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Message
-              </label>
-              <textarea
-                rows="4"
-                placeholder="Apna message yahan likhein..."
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              ></textarea>
+            <div className="rounded-lg bg-blue-50 border border-blue-200 p-3 text-sm text-blue-700">
+              💡 Your feedback helps us improve and deliver a better experience for everyone.
             </div>
-
-            <button
-              type="submit"
-              className="w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-800 transition"
-            >
-              Send Message
-            </button>
           </form>
+          {/* 👆 FORM AREA END */}
 
           <div className="text-center mt-4">
             <Link
-              to="/" onClick={() => setOpen(false)}
+              to="/"  onClick={() => setOpen(false)}
               className="text-sm text-blue-600 hover:underline"
             >
               ← Back to Home
@@ -68,9 +70,9 @@ const Contact = () => {
           </div>
         </div>
       </div>
+
       <div><BottomAdBanner /></div>
       <div><BottomAdBanner /></div>
-     
     </div>
   );
 };
