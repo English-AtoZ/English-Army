@@ -4,6 +4,10 @@ import LearnWithAudio from "./components/LearnWithAudio";
 import LearnWithAudioEnglish from "./components/LearnWithAudioEnglish";
 import Audios3Bolkar from "./components/Audios3Bolkar";
 import HindiToSansikritAudio from "./components/HindiToSansikritAudio";
+import About from './Nav-Head/About'
+import Contact from './Nav-Head/Contact'
+import PrivacyPolicy from './Nav-Head/PrivacyPolicy'
+import Terms from './Nav-Head/Terms'
 
 
 
@@ -81,6 +85,22 @@ function Home() {
           <button onClick={() => handleOpen("audios3Bolkar")}>
             Words Pronounciation
           </button>
+               {/* ==========Pages for Web============= */}
+          {/* <button onClick={() => handleOpen("about")}>
+           about
+          </button>
+
+          <button onClick={() => handleOpen("contact")}>
+            contact
+          </button>
+
+          <button onClick={() => handleOpen("privacypolicy")}>
+           privacypolicy
+          </button>
+
+          <button onClick={() => handleOpen("terms")}>
+            terms
+          </button> */}
         </div>
       )}
 
@@ -88,6 +108,13 @@ function Home() {
       {activePage === "englishToHindi" && <LearnWithAudioEnglish />}
       {activePage === "audios3Bolkar" && <Audios3Bolkar />}
       {activePage === "hindiToSansikrit" && <HindiToSansikritAudio />}
+
+
+
+      {activePage === "about" && <About />}
+      {activePage === "contact" && <Contact />}
+      {activePage === "privacypolicy" && <PrivacyPolicy />}
+      {activePage === "terms" && <Terms />}
 
  <div>     <BottomAdBanner /></div>
 

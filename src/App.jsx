@@ -15,7 +15,7 @@ import Terms from "./Nav-Head/Terms";
 import Navbar from "./Nav-Head/Navbar";
 import Footer from "./Nav-Head/Footer";
 import Home from './Home'
-import ErrorPage from "./components/ErrorPage";
+import ErrorPage from './components/ErrorPage'
 
 const App = () => {
   return (
