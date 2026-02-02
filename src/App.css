@@ -1,0 +1,91 @@
+/* App.css */
+
+/* Full viewport container */
+.app-container {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Centered home buttons container */
+.home-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Buttons responsive width */
+.home-buttons button {
+  width: 250px;
+  height: 50px;
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* Countdown screen */
+.countdown-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* Responsive adjustments */
+
+/* Mobile (< 600px) */
+@media (max-width: 600px) {
+  .home-buttons button {
+    width: 180px;
+    height: 80px;
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .home-buttons {
+    gap: 15px;
+  }
+}
+
+/* Tablet (601px - 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .home-buttons button {
+    width: 220px;
+    height: 50px;
+    font-size: 15px;
+    padding: 9px;
+  }
+
+  .home-buttons {
+    gap: 18px;
+  }
+}
+
+/* Laptop / Desktop (> 1024px) */
+@media (min-width: 1025px) {
+  .home-buttons button {
+    width: 250px;
+    height: 55px;
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .home-buttons {
+    gap: 20px;
+  }
+}
+
+
+
+.navbar .container-fluid  ul li NavLink{
+  margin: 20px;
+  padding: 5px;
+}

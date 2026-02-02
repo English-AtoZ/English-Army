@@ -1,0 +1,136 @@
+/* LearnWithAudioEnglish.css */
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.innerWrap {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.inputWrapper {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.micBtn {
+  border: none;
+  font-weight: bold;
+  color: #0ddd06;
+  font-size: 18px;
+  cursor: pointer;
+  background: none;
+  padding: 10px;
+  transition: 0.3s;
+}
+
+.status {
+  margin-top: 10px;
+  color: #ff4b2b;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.displayArea {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+}
+
+.resultBox {
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #3bf30d;
+  text-align: left;
+}
+
+.engText {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 5px 0;
+  color: #0b2ef8;
+}
+
+.hindiText {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 5px 0;
+  color: #fd1313;
+}
+
+/* --- Responsive adjustments --- */
+
+/* Mobile (< 600px) */
+@media (max-width: 600px) {
+  .innerWrap {
+    padding: 10px;
+  }
+
+  .micBtn {
+    font-size: 16px;
+    padding: 8px;
+  }
+
+  .engText, .hindiText {
+    font-size: 20px;
+  }
+
+  .resultBox {
+    padding: 10px;
+  }
+}
+
+/* Tablet (601px - 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .innerWrap {
+    padding: 15px;
+  }
+
+  .micBtn {
+    font-size: 17px;
+    padding: 9px;
+  }
+
+  .engText, .hindiText {
+    font-size: 24px;
+  }
+
+  .resultBox {
+    padding: 12px;
+  }
+}
+
+/* Laptop/Desktop (> 1024px) */
+@media (min-width: 1025px) {
+  .innerWrap {
+    padding: 20px;
+  }
+
+  .micBtn {
+    font-size: 18px;
+    padding: 10px;
+  }
+
+  .engText, .hindiText {
+    font-size: 28px;
+  }
+
+  .resultBox {
+    padding: 15px;
+  }
+}

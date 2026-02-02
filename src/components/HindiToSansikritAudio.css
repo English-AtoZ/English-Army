@@ -1,0 +1,168 @@
+/* HindiToSansikritAudio.css */
+
+.container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+  background-color: #4527a0;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.card {
+  max-width: 95%;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+.inputWrapper {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.micBtn {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.status {
+  margin-top: 10px;
+  color: #673ab7;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.displayArea {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-x: auto;
+}
+
+.resultBox {
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #f1f3f4;
+  text-align: left;
+}
+
+.hindiText {
+  font-size: 22px;
+  margin: 5px 0;
+  color: #333;
+}
+
+.sanskritText {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 5px 0;
+  color: #673ab7;
+}
+
+.speakBtn {
+  background: none;
+  border: 1px solid #673ab7;
+  color: #673ab7;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* --- Responsive adjustments --- */
+
+/* Mobile (< 600px) */
+@media (max-width: 600px) {
+  .card {
+    padding: 15px;
+  }
+
+  .micBtn {
+    width: 55px;
+    height: 55px;
+    font-size: 24px;
+  }
+
+  .hindiText {
+    font-size: 18px;
+  }
+
+  .sanskritText {
+    font-size: 20px;
+  }
+
+  .speakBtn {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+}
+
+/* Tablet (601px - 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .card {
+    padding: 18px;
+  }
+
+  .micBtn {
+    width: 65px;
+    height: 65px;
+    font-size: 28px;
+  }
+
+  .hindiText {
+    font-size: 20px;
+  }
+
+  .sanskritText {
+    font-size: 23px;
+  }
+
+  .speakBtn {
+    font-size: 13px;
+    padding: 4px 9px;
+  }
+}
+
+/* Laptop/Desktop (> 1024px) */
+@media (min-width: 1025px) {
+  .card {
+    padding: 20px;
+  }
+
+  .micBtn {
+    width: 70px;
+    height: 70px;
+    font-size: 30px;
+  }
+
+  .hindiText {
+    font-size: 22px;
+  }
+
+  .sanskritText {
+    font-size: 25px;
+  }
+
+  .speakBtn {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+}
